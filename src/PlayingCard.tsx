@@ -4,6 +4,7 @@ import {ReactComponent as Club} from './images/club.svg';
 import {ReactComponent as Diamond} from './images/diamond.svg';
 import {ReactComponent as Heart} from './images/heart.svg';
 import {ReactComponent as Spade} from './images/spade.svg';
+import {Card} from "./types/Card";
 
 
 // Instead of trying to be Fancy, just going to be a big character indicating the card
@@ -18,9 +19,7 @@ const FlexColumn = styled.div`
 export type Suit = 'clubs' | 'diamonds' | 'hearts' | 'spades';
 export type Rank = 'A' | 'K' | 'Q' | 'J' | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2;
 
-interface PlayingCardProps {
-    rank: 'A' | 'K' | 'Q' | 'J' | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2;
-    suit: 'clubs' | 'diamonds' | 'hearts' | 'spades';
+interface PlayingCardProps extends Card {
     fourColor?: boolean
 }
 
@@ -70,7 +69,7 @@ const SuitImage = (props: SuitImageProps) => {
 };
 
 const RankContainer = styled.div`
-  font-size: 3em;
+  font-size: calc(0.3 * var(--card-height));
   text-align: start;
   color: ${props => props.color}
 `;
@@ -84,16 +83,18 @@ const CardRank = (props: RankProps) => {
 };
 
 const PlayingCardContainer = styled.div`
+  --card-height: 10vh;
+  
+  width: calc(var(--card-height) / 1.4);
+  height: var(--card-height);
+  
   background: #FFFFFF 0 0 no-repeat padding-box;
   box-shadow: 3px 3px 25px #0000001C;
   border-radius: 9px;
   opacity: 1;
   
   padding: 1em;
-  margin: 1em;
-  
-  width: 100px;
-  height: 140px;
+  margin: 0.5em 0.5em;
 `;
 
 const getColor = (suit: Suit, isFourColorDeck = false) => {
