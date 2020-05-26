@@ -4,7 +4,7 @@ import {ReactComponent as Club} from './images/club.svg';
 import {ReactComponent as Diamond} from './images/diamond.svg';
 import {ReactComponent as Heart} from './images/heart.svg';
 import {ReactComponent as Spade} from './images/spade.svg';
-import {Card} from "./types/Card";
+import {Card, Rank, Suit} from "./types/Card";
 
 
 // Instead of trying to be Fancy, just going to be a big character indicating the card
@@ -15,9 +15,6 @@ const FlexColumn = styled.div`
    flex-direction: column;
    justify-content: space-between;
 `;
-
-export type Suit = 'clubs' | 'diamonds' | 'hearts' | 'spades';
-export type Rank = 'A' | 'K' | 'Q' | 'J' | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2;
 
 interface PlayingCardProps extends Card {
     fourColor?: boolean
@@ -30,7 +27,7 @@ const SuitImageContainer = styled.div`
   }
   
   svg path {
-    fill: ${props => props.color};
+    fill: ${props => props.color === 'red' ? 'var(--red)' : 'var(--black)'}
   }
 `;
 
@@ -69,9 +66,9 @@ const SuitImage = (props: SuitImageProps) => {
 };
 
 const RankContainer = styled.div`
-  font-size: calc(0.3 * var(--card-height));
+  font-size: var(--rank-size);
   text-align: start;
-  color: ${props => props.color}
+  color: ${props => props.color === 'red' ? 'var(--red)' : 'var(--black)'}
 `;
 
 const CardRank = (props: RankProps) => {
@@ -83,9 +80,8 @@ const CardRank = (props: RankProps) => {
 };
 
 const PlayingCardContainer = styled.div`
-  --card-height: 10vh;
   
-  width: calc(var(--card-height) / 1.4);
+  width: var(--card-width);
   height: var(--card-height);
   
   background: #FFFFFF 0 0 no-repeat padding-box;

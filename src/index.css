@@ -2,6 +2,7 @@ body {
   margin: 0;
   font-family: 'Nunito', sans-serif;
   font-weight: bold;
+  color: var(--black);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -9,4 +10,30 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.App {
+  /* Declaring Global Size Primitives */
+
+  /* Card Stuff by width*/
+
+  /*--card-width: 10vw;*/
+  /*--card-height: calc(1.4 * var(--card-width));*/
+
+  /* by height */
+  --card-height: 8vh;
+  --card-width: calc(var(--card-height) / 1.4);
+
+  --board-row-height: calc(var(--card-height) * 1.2 + 1.5em);
+
+  --rank-size: calc(0.4 * var(--card-height));
+
+
+
+  /* Colors */
+  --black: #323031;
+  --red: #db3a34;
+  --yellow: #ffc857;
+  --blue: #084c61;
+  --light-blue: #177e89;
 }

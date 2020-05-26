@@ -1,32 +1,60 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
-import {PlayingCard, Rank, Suit} from "./PlayingCard";
-import {shuffle} from "lodash-es";
+import {PlayingCard} from "./PlayingCard";
 import {sortHand} from "./CardUtils";
+import {Card} from "./types/Card";
 
 interface HandProps {
-
+    hand: Card[]
 }
 
 const HandContainer = styled.div`
             display: flex;
             width: 100%;
-            height: 100vh;
-            justify-content: space-around;
-            flex-wrap: nowrap;
+            justify-content: center;
+            flex-wrap: wrap;
 `;
 
-const suits: Suit[] = ['spades', 'diamonds', 'clubs', 'hearts'];
-const ranks: Rank[] = ['A', 'K', 'Q', 'J', 10, 9, 8, 7, 6, 5, 4, 3, 2];
-
-const cards = suits.flatMap((s) => ranks.map(r => ({rank: r, suit: s})));
-
 export const Hand = (props: HandProps) => {
-    const hand = sortHand(shuffle(cards).slice(0, 13));
+    const hand = sortHand(props.hand);
+    const [condensed, setCondensed] = useState(false);
 
+    if (condensed) {
+        return <CondensedHand hand={hand}/>
+    } else {
+        return (
+            <HandContainer>
+                {hand.map(card => <PlayingCard rank={card.rank} suit={card.suit}/>)}
+            </HandContainer>
+        )
+    }
+};
+
+const CondensedHandContainer = styled.div`
+
+`;
+
+const CondensedHand = (props: HandProps) => {
     return (
-        <HandContainer>
-            {hand.map(card => <PlayingCard rank={card.rank} suit={card.suit}/>)}
-        </HandContainer>
+        <CondensedHandContainer>
+            {props.hand.map(card => <CondensedCard {...card} />)}
+        </CondensedHandContainer>
+    )
+};
+
+
+const CondensedCardContainer = styled.div`
+
+`;
+
+interface CondensedCardProps extends Card {
+}
+
+const CondensedCard = ({suit, rank}: CondensedCardProps) => {
+    return (
+        <CondensedCardContainer>
+            <span>{suit}</span>
+            <span>{rank}</span>
+        </CondensedCardContainer>
     )
 };
