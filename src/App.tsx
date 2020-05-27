@@ -1,12 +1,16 @@
+import {StoreProvider} from 'easy-peasy';
 import React from 'react';
-import './App.css';
-import {Game} from "./Game";
+import {Game} from "./components/Game";
+import store from "./store";
 
 function App() {
+
     return (
-        <div className="App">
-           <Game/>
-        </div>
+        <StoreProvider store={store}>
+            <div className="App">
+                <Game/>
+            </div>
+        </StoreProvider>
     );
 }
 

@@ -5,6 +5,8 @@ body {
   color: var(--black);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  text-align: center;
 }
 
 code {
@@ -25,7 +27,7 @@ code {
   --card-width: calc(var(--card-height) / 1.4);
 
   --board-row-height: calc(var(--card-height) * 1.2 + 1.5em);
-
+  --board-border-radius: max(256, 20vw);
   --rank-size: calc(0.4 * var(--card-height));
 
 
@@ -36,4 +38,7 @@ code {
   --yellow: #ffc857;
   --blue: #084c61;
   --light-blue: #177e89;
+
+  max-width: 1028px;
+  margin: auto;
 }

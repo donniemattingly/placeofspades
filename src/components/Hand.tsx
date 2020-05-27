@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import {PlayingCard} from "./PlayingCard";
-import {sortHand} from "./CardUtils";
-import {Card} from "./types/Card";
+import {sortHand} from "../CardUtils";
+import {Card} from "../types/Card";
+import {useStoreActions} from "../store";
 
 interface HandProps {
     hand: Card[]
@@ -18,13 +19,22 @@ const HandContainer = styled.div`
 export const Hand = (props: HandProps) => {
     const hand = sortHand(props.hand);
     const [condensed, setCondensed] = useState(false);
+    const playCard = useStoreActions(actions => actions.game.playCard);
+
+    const onClick = (card: Card) => {
+        playCard(card);
+    };
 
     if (condensed) {
         return <CondensedHand hand={hand}/>
     } else {
         return (
             <HandContainer>
-                {hand.map(card => <PlayingCard rank={card.rank} suit={card.suit}/>)}
+                {hand.map(card => <PlayingCard key={`${card.rank}${card.suit}`} onClick={() => onClick(card)} rank={card.rank} suit={card.suit}/>)}
+
+                <button onClick={() => setCondensed(!condensed)}>
+                    Toggle
+                </button>
             </HandContainer>
         )
     }
